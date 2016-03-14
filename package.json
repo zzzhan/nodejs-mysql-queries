@@ -1,0 +1,40 @@
+{
+  "name": "mysql-queries",
+  "description": "Execute multiple queries with only one callback for MySQL.",
+  "main": "lib/mysql-queries.js",
+  "files": [
+    "lib"
+  ],
+  "author": {
+    "name": "zzzhan"
+  },
+  "version": "0.1.0",
+  "keywords": [
+    "queries",
+    "mysql",
+    "query",
+    "callback",
+    "utility",
+    "module"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zzzhan/nodejs-mysql-queries.git"
+  },
+  "bugs": {
+    "url": "https://github.com/zzzhan/nodejs-mysql-queries/issues"
+  },
+  "license": "MIT",
+  "scripts": {
+    "test": "node ./test/test.js"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "grunt-contrib-jshint": "^0.11.2",
+    "matchdep": "^0.3.0"
+  },
+  "dependencies": {
+    "async": "^1.5.2",
+    "mysql": "^2.8.0"
+  }
+}
