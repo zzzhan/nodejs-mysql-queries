@@ -9,7 +9,7 @@ $ npm install mysql-queries --save
 
 ## How to Use
 
-Init `mysql-queries` to somewhere,such as app.js of 'Express:
+Init `mysql-queries` to somewhere,such as app.js of `Express:
 ```js
 var options = {
 	host: 'localhost',
@@ -25,7 +25,6 @@ Use it to some other module, like this:
 ```js
 var sqlclient = require('mysql-queries');
 //Execute multiple SQLs, like this:
-  function(data, callback) {
     sqlclient.queries(['SELECT * FROM prod_unit WHERE NAME=? limit 1',
 	  'INSERT INTO prod_unit(name) values(?)',
 	  'INSERT INTO product(name, type_id, unit_id, price) VALUES(?, ?, ?, ?)'],
@@ -34,12 +33,12 @@ var sqlclient = require('mysql-queries');
 		var skip = false;
 		switch(i) {
 		  case 1:
-		  //handle second sql
-		  //if the first sql empty,create a new one
+		  //handle second SQL
+		  //Execute the second SQL depending on the first SQL result.
 		  skip = results[0].length!==0;
 		  break;
 		case 2:
-		  //use the second result,and pass to the third sql as parameter
+		  //If the second SQL executed, passing the "insertId" to the third SQL as parameter.
 		  if(results[0].length===0) {
 		    arg[2]=results[1].insertId;
 		  }
@@ -47,18 +46,35 @@ var sqlclient = require('mysql-queries');
 		}
 		return skip;
 	  }
-	}, callback);
-  }
+	}, function(err, results){
+	  if(!err) {
+		//If not error, the parameter "results" is a array,results of the SQLs.
+	    console.log(results);
+	  } else {
+	    console.log(err);
+	  }
+	});
   
-//Execute with only one SQL, like this:
-  function(callback) {
-	sqlclient.query('SELECT * FROM prod_unit', callback);
-  }
+//Also, you can execute with only one SQL, like this:
+	sqlclient.query('SELECT * FROM prod_unit', , function(err, result){
+	  if(!err) {
+		//If not error, the parameter "result" is the result of the SQL.
+	    console.log(result);
+	  } else {
+	    console.log(err);
+	  }
+	});
 ```
+
+## Features
+* Less code when executing multiple SQLs
+* Support transaction of connection
+* Support conntion pool
+* Auto release the connection
 
 ## Running Tests
 
-With your local environment configured, running tests is as simple as:
+With your MySQL configured on `./test/mysql.json, running tests is as simple as:
 ```
 npm test
 ```
