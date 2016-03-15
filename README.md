@@ -9,7 +9,7 @@ $ npm install mysql-queries --save
 
 ## How to Use
 
-Init `mysql-queries` to somewhere,such as app.js of `Express:
+Init `mysql-queries` to somewhere,such as app.js of `Express`:
 ```js
 var options = {
 	host: 'localhost',
@@ -69,7 +69,7 @@ var sqlclient = require('mysql-queries');
 ## Features
 * Less code when executing multiple SQLs
 * Support transaction of connection
-* Support conntion pool
+* Support connection pool
 * Auto release the connection
 
 ## Running Tests
