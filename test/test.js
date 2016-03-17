@@ -27,7 +27,32 @@ sqlclient.queries(['SELECT host FROM user where user=? limit 1',
 		console.log(results);
 	  }
   });
-  
+ sqlclient.queries(['SELECT host FROM user where user=? limit 1',
+  'SELECT user FROM user where user=? limit 1',
+  'SELECT password FROM user where user=? limit 1'], [[id],[id],[id]], {
+	  beforeQuery:function(i, arg, results) {
+		var skip = false;
+		switch(i) {
+		  case 1:
+		    //whether skip the update or not,according to the first query result
+			skip = results[0].length===0;
+			break;
+		  case 2:
+		    //whether skip the delete or not,according to the first query result
+			//skip = results[0].length!==0;
+			throw 'break with error.';
+			break;
+		}
+		return skip;
+	  }
+  }, function(err, results){
+	  if(!!err) {
+		console.error(err);
+		console.error(results);
+	  } else {
+		console.log(results);
+	  }
+  }); 
 sqlclient.query('SELECT host FROM user where user=? limit 1', [id], function(err, results){
   if(!!err) {
 	console.error(err);
