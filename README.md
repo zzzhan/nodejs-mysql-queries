@@ -28,14 +28,15 @@ var sqlclient = require('mysql-queries');
     sqlclient.queries(['SELECT * FROM prod_unit WHERE NAME=? limit 1',
 	  'INSERT INTO prod_unit(name) values(?)',
 	  'INSERT INTO product(name, type_id, unit_id, price) VALUES(?, ?, ?, ?)'],
-	  [[data.unit_name],[data.unit_name],[data.name,data.type_id,data.unit_id,data.price]], function(err, results){
-	  if(!err) {
-		//If not error, the parameter "results" is the results of the SQLs as array.
-	    console.log(results);
-	  } else {
-	    console.log(err);
-	  }
-	});
+	  [[data.unit_name],[data.unit_name],[data.name,data.type_id,data.unit_id,data.price]], 
+	  function(err, results){
+	    if(!err) {
+		//If not error, the "results" parameter is the results of the SQLs as array.
+	      console.log(results);
+	    } else {
+	      console.log(err);
+	    }
+	  });
 	
 //Or execute multiple SQLs with option, like this:
     sqlclient.queries(['SELECT * FROM prod_unit WHERE NAME=? limit 1',
